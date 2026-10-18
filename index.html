@@ -1,979 +1,591 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alec: The Absolute Pinnacle of Excellence</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Canvas Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
-    <!-- Paho MQTT Client for Zero-Server Realtime WebSockets -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alec Sanctuary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0d15;
+      --bg-2: #121827;
+      --panel: rgba(18, 22, 35, 0.82);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --text: #f4f7fb;
+      --muted: #b3bed3;
+      --gold: #f7c75f;
+      --gold-2: #ff9f43;
+      --pink: #ff7cc8;
+      --blue: #7aa7ff;
+      --green: #7ef0a6;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        gold: {
-                            300: '#fde047',
-                            400: '#facc15',
-                            500: '#eab308',
-                            600: '#ca8a04',
-                            700: '#a16207',
-                        },
-                        obsidian: {
-                            900: '#07080e',
-                            800: '#0c0e17',
-                            700: '#131622',
-                        }
-                    },
-                    animation: {
-                        'pulse-glow': 'pulseGlow 2.5s infinite alternate',
-                        'float': 'float 5s ease-in-out infinite',
-                        'float-slow': 'float 7s ease-in-out infinite',
-                        'shimmer': 'shimmer 2.5s infinite linear',
-                    },
-                    keyframes: {
-                        pulseGlow: {
-                            '0%': { boxShadow: '0 0 15px rgba(255,107,107,0.15)' },
-                            '100%': { boxShadow: '0 0 45px rgba(107,107,255,0.65)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        shimmer: {
-                            '0%': { backgroundPosition: '-200% 0' },
-                            '100%': { backgroundPosition: '200% 0' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        :root{--g1:#ff6b6b; --g2:#f7b801; --g3:#6bffb3; --g4:#6b6bff; --g5:#ff6bcd}
-        body {
-            background-color: #07080E;
-            color: #F3F4F6;
-            overflow-x: hidden;
-        }
-        .animated-gradient-text {
-            background: conic-gradient(from 0deg, var(--g1), var(--g2), var(--g3), var(--g4), var(--g5));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: gradientShift 7s linear infinite;
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .purple-gold-card {
-            background: rgba(14, 16, 28, 0.75);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(234, 179, 8, 0.22);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .purple-gold-card:hover {
-            box-shadow: 0 10px 30px -10px rgba(234, 179, 8, 0.12);
-        }
-        .glow-button {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .glow-button:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 0 30px rgba(255,107,107,0.25);
-        }
-        .glow-button:active {
-            transform: translateY(1px) scale(0.98);
-        }
-        .warning-separator {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff4444, transparent);
-            margin: 8px 0;
-        }
-        a { padding: 15px; background: #222; color: #00ffcc; text-decoration: none; border-radius: 8px; border: 1px solid #333; font-weight: bold; }
-        a.warning { background: #3a1d1d; color: #ff8a80; border-color: #ff4444; }
-        a:hover { background: #333; }
-        a.warning:hover { background: #4a2424; }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 7px;
-            height: 7px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e1f22;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2b2d31;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #eab308;
-        }
-        .blob-anim { animation: gradientShift 12s linear infinite; mix-blend-mode: screen; }
-        .quote-card { transition: transform 220ms ease, opacity 220ms ease; }
-        .quote-fade-out { opacity: 0; transform: translateY(6px) scale(.995); }
-    </style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(247, 199, 95, 0.18), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(122, 167, 255, 0.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      background: rgba(17, 20, 30, 0.8);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px var(--shadow);
+      position: sticky;
+      top: 18px;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      display: grid;
+      place-items: center;
+      color: #111;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      box-shadow: 0 0 18px rgba(247, 199, 95, 0.35);
+    }
+
+    .brand-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      background: linear-gradient(90deg, #fff8d1, var(--gold), var(--pink), var(--blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid rgba(126, 240, 166, 0.35);
+      background: rgba(126, 240, 166, 0.08);
+      color: #9ee9b4;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7ef0a6;
+      box-shadow: 0 0 12px rgba(126, 240, 166, 0.8);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.7; }
+    }
+
+    .hero {
+      text-align: center;
+      padding: 48px 0 26px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(247, 199, 95, 0.25);
+      background: rgba(247, 199, 95, 0.07);
+      border-radius: 999px;
+      color: #f5d57a;
+      padding: 8px 14px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.7rem, 7vw, 6rem);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+    }
+
+    .gradient-text {
+      display: inline-block;
+      background: linear-gradient(90deg, #fff8d1, var(--gold), var(--pink), var(--blue), var(--green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: shimmer 10s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.7;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      box-shadow: 0 18px 40px var(--shadow);
+    }
+
+    .quote-card {
+      padding: 30px 28px;
+      margin-top: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card::before,
+    .quote-card::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      filter: blur(28px);
+      opacity: 0.16;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .quote-card::before {
+      left: -60px;
+      top: -70px;
+      background: rgba(255, 124, 200, 0.8);
+    }
+
+    .quote-card::after {
+      right: -40px;
+      bottom: -80px;
+      background: rgba(122, 167, 255, 0.75);
+    }
+
+    .quote-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-tag {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(247, 199, 95, 0.08);
+      border: 1px solid rgba(247, 199, 95, 0.26);
+      color: #f6d57f;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    blockquote {
+      margin: 18px 0 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      line-height: 1.2;
+      letter-spacing: -0.05em;
+    }
+
+    .quote-author {
+      color: #f4d78c;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 150ms ease, opacity 150ms ease, box-shadow 150ms ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+
+    .primary-btn {
+      background: linear-gradient(90deg, var(--gold), var(--gold-2));
+      color: #171515;
+      font-weight: 900;
+      padding: 13px 18px;
+      border-radius: 14px;
+      box-shadow: 0 10px 26px rgba(247, 199, 95, 0.3);
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 13px 18px;
+      border-radius: 14px;
+    }
+
+    .praise-box {
+      padding: 26px 24px;
+      margin-top: 30px;
+    }
+
+    .praise-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10, 13, 19, 0.7);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      resize: vertical;
+    }
+
+    .field textarea {
+      min-height: 110px;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #7d899f;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #ffd76a, #ffb347);
+      color: #111;
+      font-weight: 900;
+      font-size: 1rem;
+      box-shadow: 0 12px 28px rgba(247, 199, 95, 0.22);
+    }
+
+    .feed {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .comment {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .comment-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .comment-name {
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .comment-badge {
+      color: #f7d77d;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .comment-time {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .comment p {
+      margin: 0;
+      color: #dfeaf9;
+      line-height: 1.6;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .placeholder {
+      padding: 18px;
+      border-radius: 18px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 16px; }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .praise-form {
+        grid-template-columns: 1fr;
+      }
+      .quote-card, .praise-box {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between font-sans selection:bg-gold-500 selection:text-black">
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">A</div>
+        <div class="brand-name">ALEC.EXCELLENCE</div>
+      </div>
+      <div class="status-pill"><span class="dot"></span> Global Sync Live</div>
+    </header>
 
-    <!-- Ambient Glowing Nebulae (now animated colors) -->
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] blob-anim pointer-events-none rounded-full"
-         style="background: conic-gradient(from 180deg, rgba(255,107,107,0.12), rgba(247,184,1,0.10), rgba(107,255,179,0.08), rgba(107,107,255,0.06)); filter: blur(160px);"></div>
-    <div class="fixed top-1/3 -right-24 w-96 h-96 blob-anim pointer-events-none rounded-full" style="background: conic-gradient(from 0deg, rgba(247,184,1,0.08), rgba(107,107,255,0.06)); filter: blur(150px);"></div>
-    <div class="fixed bottom-1/4 -left-24 w-96 h-96 blob-anim pointer-events-none rounded-full" style="background: conic-gradient(from 120deg, rgba(107,255,179,0.08), rgba(255,107,107,0.06)); filter: blur(160px);"></div>
+    <main>
+      <section class="hero">
+        <div class="eyebrow">The Uncontested Sovereign of Brilliance</div>
+        <h1>Celebrating The Boundless<br><span class="gradient-text">Excellence of Alec</span></h1>
+        <p class="subtitle">Welcome to the digital sanctuary built for the kind of person who turns a simple webpage into a legend. Slightly chaotic. Very impressive. Entirely worth it.</p>
+      </section>
 
-    <!-- ======================================================== -->
-    <!-- OVERHAULED HOMEPAGE FRONT (The Innocent Sanctuary)       -->
-    <!-- ======================================================== -->
-    <div id="frontPage" class="relative z-10 flex-grow">
-        <!-- Navigation Header -->
-        <header class="border-b border-white/10 backdrop-blur-xl sticky top-0 z-40 bg-black/60 shadow-lg shadow-black/20">
-            <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center">
-                <!-- Secret Trigger 1: Triple-Click Logo -->
-                <div class="flex items-center gap-3 cursor-pointer group select-none" id="logoSecretTrigger" onclick="window.handleLogoClick()" title="Alec Sanctuary Crest">
-                    <div id="logoBadge" class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 flex items-center justify-center text-black font-heading font-bla[...]">
-                        A
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="font-heading font-extrabold text-xl tracking-tight animated-gradient-text">ALEC.EXCELLENCE</span>
-                            <span class="text-[10px] uppercase font-bold text-amber-400 bg-amber-400/10 border border-amber-400/30 px-1.5 py-0.5 rounded">PRIME</span>
-                        </div>
-                        <p class="text-[11px] text-gray-400 font-mono hidden sm:block">The Absolute Pinnacle of Brilliance</p>
-                    </div>
-                </div>
-
-                <!-- Right Header Stats & Badges -->
-                <div class="flex items-center gap-2 sm:gap-4">
-                    <span id="syncIndicator" class="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-3 py-1 rounded-full flex items-center gap-2 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span id="syncStatusText">Global Sync Live</span>
-                    </span>
-                    <a href="#wallOfPraise" class="hidden sm:flex text-xs font-bold text-gray-300 hover:text-amber-400 transition-colors items-center gap-1.5">
-                        <i class="fa-solid fa-scroll text-amber-400/70"></i>
-                        <span>Wall of Praise</span>
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Hero & Content -->
-        <main class="max-w-6xl mx-auto px-4 py-12 space-y-20">
-
-            <!-- Hero Section -->
-            <section class="text-center space-y-6 pt-4 relative">
-                <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs sm:text-sm font-semibold animate-float shadow-md">
-                    <i class="fa-solid fa-crown text-amber-400 text-sm"></i>
-                    <span>The Uncontested Sovereign of Brilliance</span>
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                    <span class="text-gray-400 font-normal">Living Legend</span>
-                </div>
-
-                <h1 class="text-5xl sm:text-7xl lg:text-8xl font-heading font-black tracking-tight leading-tight">
-                    Celebrating The Boundless <br>
-                    Excellence of <span class="animated-gradient-text drop-shadow-[0_10px_20px_rgba(250,204,21,0.25)]">ALEC</span>
-                </h1>
-
-                <p class="max-w-2xl mx-auto text-base sm:text-xl text-gray-300 leading-relaxed font-light">
-                    Welcome to the digital sanctuary established to honor Alec's transcendent intellect, cosmic aura, and uncontested mastery across all domains.
-                </p>
-
-                <!-- Replaced Metrics Dashboard with Refreshable Quotes Card -->
-                <div class="max-w-4xl mx-auto pt-6">
-                    <div id="alecQuoteCard" class="quote-card purple-gold-card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl">
-                        <div class="absolute -right-12 -top-12 w-40 h-40 blob-anim rounded-full" style="background: conic-gradient(from 200deg, rgba(255,107,107,0.06), rgba(247,184,1,0.06)); filter: blur(40px);"></div>
-                        <div class="absolute -left-12 -bottom-12 w-40 h-40 blob-anim rounded-full" style="background: conic-gradient(from 60deg, rgba(107,255,179,0.06), rgba(107,107,255,0.06)); filter: blur(40px);"></div>
-
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-[11px] font-bold uppercase tracking-widest mb-4">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                            <span>Fresh Sayings from the Hall of Alec</span>
-                        </div>
-
-                        <blockquote id="alecQuoteText" class="text-xl sm:text-2xl font-heading font-black text-white leading-tight mb-4">"Alec once debugged reality — and it apologized."</blockquote>
-                        <div id="alecQuoteAuthor" class="text-sm text-amber-300 font-semibold mb-6">— Anonymous Witness</div>
-
-                        <div class="flex items-center justify-center gap-3">
-                            <button id="refreshQuoteBtn" class="glow-button bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-heading font-bold px-6 py-3 rounded-xl flex items-center gap-2" title="Refresh quote">
-                                <i class="fa-solid fa-arrows-rotate"></i>
-                                <span>Refresh</span>
-                            </button>
-                            <button id="copyQuoteBtn" class="glow-button bg-white/5 hover:bg-white/10 text-gray-200 px-4 py-3 rounded-xl flex items-center gap-2" title="Copy quote to clipboard">
-                                <i class="fa-regular fa-copy"></i>
-                                <span>Copy</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Interactive Live Praise Chamber (Syncs Live Globally!) -->
-            <section class="max-w-xl mx-auto">
-                <div class="purple-gold-card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden shadow-2xl animate-pulse-glow border-amber-500/30">
-                    <div class="absolute -right-12 -top-12 w-40 h-40 bg-amber-400/15 rounded-full blur-3xl pointer-events-none"></div>
-                    <div class="absolute -left-12 -bottom-12 w-40 h-40 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
-
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-[11px] font-bold uppercase tracking-widest m[...]"></div>
-                    
-                    <div class="flex items-center justify-center gap-4 my-6">
-                        <i class="fa-solid fa-bolt text-4xl sm:text-5xl text-amber-400 animate-bounce"></i>
-                        <span id="praiseCounter" class="text-6xl sm:text-8xl font-heading font-black text-white tracking-tight drop-shadow-md">1,337</span>
-                    </div>
-
-                    <p class="text-sm text-gray-300 mb-8 max-w-sm mx-auto">
-                        Global testaments acknowledging Alec's supremacy. Every click syncs instantly worldwide.
-                    </p>
-
-                    <!-- Praise Action Button -->
-                    <button id="praiseBtn" onclick="window.praiseAlec()" class="glow-button w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-black font[...]
-                        <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
-                        <span>APPLAUD ALEC'S EXCELLENCE!</span>
-                    </button>
-                    
-                    <p id="thankYouMsg" class="h-6 text-sm text-amber-300 font-bold mt-4 opacity-0 transition-opacity duration-300">
-                        ✨ Your praise has been etched into eternity! ✨
-                    </p>
-                </div>
-            </section>
-
-            <!-- Feats of Alec (The 4 Pillars of Brilliance) -->
-            <section class="space-y-8">
-                <div class="text-center space-y-2">
-                    <h2 class="text-3xl sm:text-4xl font-heading font-black text-white">The Four Pillars of Brilliance</h2>
-                    <p class="text-gray-400 text-sm sm:text-base max-w-lg mx-auto">Documented truths that define Alec's sovereign status in history.</p>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="purple-gold-card rounded-2xl p-6 space-y-3">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-                        <h3 class="text-lg font-heading font-bold text-white">Precognitive Intellect</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed">
-                            Alec identifies and solves multi-layered algorithmic riddles before others can even formulate the question.
-                        </p>
-                    </div>
-
-                    <div class="purple-gold-card rounded-2xl p-6 space-y-3">
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl">
-                            <i class="fa-solid fa-sun"></i>
-                        </div>
-                        <h3 class="text-lg font-heading font-bold text-white">Resplendent Aura</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed">
-                            A gravitational presence that commands clarity and precision, elevating every team member into greatness.
-                        </p>
-                    </div>
-
-                    <div class="purple-gold-card rounded-2xl p-6 space-y-3">
-                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-                        <h3 class="text-lg font-heading font-bold text-white">Flawless Craft</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed">
-                            Every system architectural design is treated like high art—robust, scalable, and mathematically pure.
-                        </p>
-                    </div>
-
-                    <div class="purple-gold-card rounded-2xl p-6 space-y-3">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
-                            <i class="fa-solid fa-infinity"></i>
-                        </div>
-                        <h3 class="text-lg font-heading font-bold text-white">Infinite Tenacity</h3>
-                        <p class="text-xs text-gray-400 leading-relaxed">
-                            Obstacles do not impede Alec; they transform into stepping stones toward unprecedented victory.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Wall of Praise / Comments Section -->
-            <section id="wallOfPraise" class="space-y-8 pt-6">
-                <div class="text-center space-y-2">
-                    <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white">The Wall of Praise</h2>
-                    <p class="text-gray-400 text-sm sm:text-base">Leave your own testament to Alec's unrivaled brilliance below.</p>
-                </div>
-
-                <!-- Submit Comment Form (Secret Trigger: Typing secret codes into Name box) -->
-                <div class="purple-gold-card rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto shadow-2xl">
-                    <form id="praiseForm" onsubmit="window.submitPraise(event)" class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="userName" class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Your Name / Alias</label>
-                                <input type="text" id="userName" placeholder="e.g. Grateful Admirer" required oninput="window.checkSecretTrigger(event)" autocomplete="off"
-                                    class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-colo[...]">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Subject</label>
-                                <input type="text" value="Praising Alec's Supreme Brilliance" disabled
-                                    class="w-full bg-white/5 border border-white/5 rounded-xl px-4 py-3 text-gray-500 cursor-not-allowed">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="userComment" class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Your Compliment / Praise</label>
-                            <textarea id="userComment" rows="3" placeholder="Describe how Alec inspired, amazed, or completely astounded you..." required
-                                class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-colors r[...]">
-                        </div>
-
-                        <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-black font-heading font-blac[...]">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            <span>Publish Praise Statement</span>
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Live Comment Feed (Removed hardcoded demo comments, starts clean!) -->
-                <div id="commentsFeed" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-                    <!-- Dynamic comments populated live via JS -->
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <!-- Innocent Footer with Secret Trigger (Stealth Lock) -->
-    <footer class="border-t border-white/5 py-8 mt-12 text-center text-xs text-gray-500 relative z-10 flex flex-col items-center gap-2 bg-black/40">
-        <p>Dedicated to Alec. Built with supreme admiration and web technology.</p>
-        <div class="flex items-center gap-2 text-[11px] text-gray-600">
-            <span>&copy; 2026 Alec Sanctuary Foundation</span>
-            <span>•</span>
-            <button onclick="window.promptSecretCode()" class="text-gray-600 hover:text-amber-400 transition-colors p-1" title="Terminal Gateway">
-                <i class="fa-solid fa-lock text-[10px]"></i>
-            </button>
-            <span>•</span>
-            <button onclick="window.toggleLogModal()" class="text-gray-600 hover:text-emerald-400 transition-colors p-1" title="Diagnostic Logs (F2)">
-                <i class="fa-solid fa-terminal text-[10px]"></i>
-            </button>
+      <section class="panel quote-card">
+        <div class="quote-inner">
+          <div class="quote-tag">Fresh Alec Wisdom</div>
+          <blockquote id="quoteText">“Alec once debugged reality and it apologised.”</blockquote>
+          <div class="quote-author" id="quoteAuthor">— Anonymous Witness</div>
+          <div class="button-row">
+            <button id="refreshQuote" class="primary-btn" type="button">Refresh</button>
+            <button id="copyQuote" class="secondary-btn" type="button">Copy Quote</button>
+          </div>
         </div>
-    </footer>
+      </section>
 
-    <!-- ======================================================== -->
-    <!-- SECRET STEALTH CLIENT (Hidden Behind The Front)           -->
-    <!-- Features: Channels, Admin Mode, Live WebSockets          -->
-    <!-- ======================================================== -->
-    <div id="discordModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 hidden transition-all">
-        <div class="bg-[#313338] text-[#dbdee1] w-full max-w-5xl h-[88vh] rounded-2xl border border-indigo-500/30 shadow-2xl flex flex-col overflow-hidden">
-            
-            <!-- Discord Header Bar -->
-            <div class="bg-[#2b2d31] border-b border-[#1f2023] px-4 sm:px-6 py-3.5 flex items-center justify-between shadow-md">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-xl shadow-inner">
-                        <i class="fa-brands fa-discord"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-white font-bold font-heading text-lg">Alec's Secret Lounge</span>
-                            <span id="roleHeaderBadge" class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase flex items-cent[...]">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span id="onlineCountBadge">Global Live</span>
-                            </span>
-                        </div>
-                        <p class="text-xs text-gray-400 flex items-center gap-1.5">
-                            <span class="text-indigo-400 font-semibold" id="activeChannelLabel">#secret-lounge</span>
-                            <span>• Stealth webchat behind front</span>
-                        </p>
-                    </div>
-                </div>
+      <section class="panel praise-box">
+        <form id="praiseForm" class="praise-form">
+          <div class="field">
+            <label for="name">Your Name / Alias</label>
+            <input id="name" type="text" placeholder="e.g. Chosen One" />
+          </div>
+          <div class="field">
+            <label for="title">Subject</label>
+            <input id="title" type="text" value="Praising Alec's Supreme Brilliance" readonly />
+          </div>
+          <div class="field full">
+            <label for="comment">Your Compliment / Praise</label>
+            <textarea id="comment" placeholder="Tell the world how Alec inspired, amazed, or completely stunned you..." required></textarea>
+          </div>
+          <div class="field full">
+            <button type="submit" class="submit-btn">Publish Praise Statement</button>
+          </div>
+        </form>
 
-                <!-- Header Actions & Camouflage (Boss Key) -->
-                <div class="flex items-center gap-2">
-                    <!-- Admin Clear Channel Button (Visible only to Admin) -->
-                    <button id="adminPurgeBtn" onclick="window.adminClearChannel()" class="hidden text-xs text-red-400 hover:text-red-300 bg-red-950/40 border border-red-800/40 px-2.5 py-1.5 roun[...]">
-                        <i class="fa-solid fa-broom text-xs mr-1"></i>
-                        <span>Clear</span>
-                    </button>
+        <div id="commentsFeed" class="feed" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
 
-                    <!-- Diagnostic Terminal / System Logs Button -->
-                    <button onclick="window.toggleLogModal()" class="text-gray-400 hover:text-emerald-400 bg-[#383a40] hover:bg-[#404249] p-2.5 rounded-xl transition-all relative" title="System D[...]">
-                        <i class="fa-solid fa-terminal text-sm"></i>
-                        <span id="logErrorDot" class="hidden absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                    </button>
+  <script>
+    const quotes = [
+      { text: 'Alec once debugged reality and it apologised.', author: 'Anonymous Witness' },
+      { text: 'If brilliance had a speed limit, Alec would be the one making the road.', author: 'The Committee' },
+      { text: 'Alec doesn’t need a manual — the universe just updates itself around him.', author: 'A Casual Observer' },
+      { text: 'Some people chase excellence. Alec just lets it do a group project with him.', author: 'The Hall of Fame' },
+      { text: 'Alec’s coffee gets more done before 9am than most people do all week.', author: 'Barista of Truth' },
+      { text: 'If Alec says “it’s easy,” the rest of us should start taking notes and breathing exercises.', author: 'A Very Concerned Intern' },
+      { text: 'Alec doesn’t have a 9-to-5. He has a 24/7 “why not?” policy.', author: 'The Mood Board' },
+      { text: 'When Alec enters a room, even the Wi-Fi starts acting like it has ambition.', author: 'Network Admin' },
+      { text: 'It’s not ego. It’s just Alec being accurate on a cosmic scale.', author: 'The Planetary Archive' },
+      { text: 'Alec could win a debate with a toaster and still make it look elegant.', author: 'Kitchen Table Philosophy' }
+    ];
 
-                    <!-- Sound chime toggle -->
-                    <button id="soundToggleBtn" onclick="window.toggleChatAudio()" class="text-gray-400 hover:text-white bg-[#383a40] hover:bg-[#404249] p-2.5 rounded-xl transition-all" title="To[...]">
-                        <i id="soundIcon" class="fa-solid fa-volume-high text-sm"></i>
-                    </button>
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-                    <!-- CAMOUFLAGE / PANIC BUTTON (Boss Key) -->
-                    <button onclick="window.closeDiscordModal()" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 hover:border-red-500/50 px-3.5 py-2 rounded-xl text[...]">
-                        <i class="fa-solid fa-shield-halved text-red-400"></i>
-                        <span class="hidden sm:inline">Camouflage</span>
-                        <kbd class="text-[10px] bg-red-950/60 px-1.5 py-0.5 rounded border border-red-800/40">ESC</kbd>
-                    </button>
+    const quoteText = document.getElementById('quoteText');
+    const quoteAuthor = document.getElementById('quoteAuthor');
 
-                    <!-- Close X Button -->
-                    <button onclick="window.closeDiscordModal()" class="text-gray-400 hover:text-white bg-[#35373c] hover:bg-red-500/20 hover:text-red-400 p-2.5 rounded-xl transition-all">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
-                </div>
-            </div>
+    function pickQuote() {
+      const item = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteText.textContent = `“${item.text}”`;
+      quoteAuthor.textContent = `— ${item.author}`;
+    }
 
-            <!-- Screen 1: Username & Password / Avatar Selector Screen -->
-            <div id="discordAuthScreen" class="flex-grow flex flex-col items-center justify-center p-6 text-center space-y-5">
-                <div class="w-20 h-20 rounded-3xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 text-4xl shadow-lg">
-                    <i class="fa-solid fa-user-secret"></i>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold font-heading text-white">Enter Stealth Webchat</h3>
-                    <p class="text-gray-400 text-sm max-w-sm mt-1">Chat live behind the front with other visitors. Pick your alias.</p>
-                </div>
+    document.getElementById('refreshQuote').addEventListener('click', pickQuote);
 
-                <form onsubmit="window.joinSecretLounge(event)" class="w-full max-w-sm space-y-4 pt-1">
-                    <div>
-                        <input type="text" id="chatUsernameInput" placeholder="Choose a handle (e.g. Cypher)..." required maxlength="25" oninput="window.handleChatUsernameInput(this.value)" autoc[...] 
-                            class="w-full bg-[#1e1f22] border border-[#383a40] rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors">
-                    </div>
+    document.getElementById('copyQuote').addEventListener('click', async () => {
+      const text = `${quoteText.textContent} ${quoteAuthor.textContent}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById('copyQuote').textContent = 'Copied!';
+        setTimeout(() => {
+          document.getElementById('copyQuote').textContent = 'Copy Quote';
+        }, 1200);
+      } catch (err) {
+        console.warn('Clipboard unavailable:', err);
+      }
+    });
 
-                    <!-- ADMIN PASSWORD BOX (Dynamically revealed if username is 'onering') -->
-                    <div id="adminPasswordContainer" class="hidden transition-all text-left space-y-1.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                        <label class="block text-xs font-bold text-amber-300 flex items-center gap-1.5">
-                            <i class="fa-solid fa-key text-amber-400"></i>
-                            <span>Admin Key Required for "onering"</span>
-                        </label>
-                        <input type="password" id="adminPasswordInput" placeholder="Enter admin password..."
-                            class="w-full bg-[#1e1f22] border border-amber-500/40 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 text-sm">
-                        <p id="adminErrorMsg" class="text-[11px] text-red-400 hidden font-semibold">Incorrect password for onering.</p>
-                    </div>
+    const commentsFeed = document.getElementById('commentsFeed');
 
-                    <!-- Avatar Color Picker -->
-                    <div>
-                        <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-2">Avatar Accent</label>
-                        <div class="flex items-center justify-center gap-3" id="avatarColorPicker">
-                            <button type="button" onclick="window.selectAvatarColor('bg-indigo-600', this)" class="w-8 h-8 rounded-full bg-indigo-600 ring-2 ring-white ring-offset-2 ring-offset-[[...]
-                            <button type="button" onclick="window.selectAvatarColor('bg-amber-500', this)" class="w-8 h-8 rounded-full bg-amber-500 transition-all"></button>
-                            <button type="button" onclick="window.selectAvatarColor('bg-emerald-600', this)" class="w-8 h-8 rounded-full bg-emerald-600 transition-all"></button>
-                            <button type="button" onclick="window.selectAvatarColor('bg-rose-600', this)" class="w-8 h-8 rounded-full bg-rose-600 transition-all"></button>
-                            <button type="button" onclick="window.selectAvatarColor('bg-cyan-600', this)" class="w-8 h-8 rounded-full bg-cyan-600 transition-all"></button>
-                            <button type="button" onclick="window.selectAvatarColor('bg-purple-600', this)" class="w-8 h-8 rounded-full bg-purple-600 transition-all"></button>
-                        </div>
-                    </div>
+    function renderComments() {
+      const comments = JSON.parse(localStorage.getItem('alec_comments') || '[]');
+      commentsFeed.innerHTML = '';
 
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-heading font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/25 f[...]
-                        <i class="fa-solid fa-door-open"></i>
-                        <span>Enter Secret Lounge</span>
-                    </button>
-                </form>
-            </div>
+      if (!comments.length) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'placeholder';
+        placeholder.textContent = 'No praise yet — be the first to make Alec’s day.';
+        commentsFeed.appendChild(placeholder);
+        return;
+      }
 
-            <!-- Screen 2: Active Webchat Interface -->
-            <div id="discordChatContainer" class="flex-grow flex overflow-hidden hidden">
-                <!-- Left Sidebar: Channels & Admin Controls -->
-                <div class="w-60 bg-[#2b2d31] hidden md:flex flex-col border-r border-[#1f2023] justify-between p-3">
-                    <div class="space-y-4">
-                        <div class="text-[11px] font-bold uppercase tracking-wider text-gray-400 px-2 flex items-center justify-between">
-                            <span>Channels</span>
-                            <!-- Admin Add Channel Button -->
-                            <button id="adminAddChannelBtn" onclick="window.adminPromptAddChannel()" class="hidden text-[10px] bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-0.5 rounded fon[...]">
-                                + Add
-                            </button>
-                        </div>
-                        
-                        <!-- Channels List -->
-                        <div class="space-y-1" id="channelsListContainer">
-                            <!-- Populated dynamically via JS -->
-                        </div>
-                    </div>
+      for (const comment of comments.slice(0, 12)) {
+        const card = document.createElement('article');
+        card.className = 'comment';
 
-                    <!-- Current User Status Card in Sidebar -->
-                    <div class="bg-[#232428] p-2.5 rounded-xl flex items-center justify-between border border-white/5">
-                        <div class="flex items-center gap-2.5 overflow-hidden">
-                            <div id="sidebarUserAvatar" class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-xs shrink-0">
-                                U
-                            </div>
-                            <div class="truncate">
-                                <div class="flex items-center gap-1.5">
-                                    <span id="sidebarUsername" class="text-xs font-bold text-white truncate">User</span>
-                                    <span id="sidebarRoleBadge" class="hidden text-[9px] bg-amber-400 text-black font-extrabold px-1.5 py-0.2 rounded uppercase">ADMIN</span>
-                                </div>
-                                <div class="text-[10px] text-emerald-400 flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                                    <span>Online</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button onclick="window.logoutChatUser()" class="text-gray-400 hover:text-red-400 p-1.5 transition-colors" title="Switch User">
-                            <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
-                        </button>
-                    </div>
-                </div>
+        const top = document.createElement('div');
+        top.className = 'comment-top';
 
-                <!-- Center Chat Area -->
-                <div class="flex-grow flex flex-col bg-[#313338]">
-                    <!-- Mobile Channel Selector Strip -->
-                    <div class="md:hidden flex items-center gap-2 px-3 py-2 bg-[#2b2d31] border-b border-[#1f2023] overflow-x-auto text-xs" id="mobileChannelsStrip">
-                        <!-- Populated via JS -->
-                    </div>
+        const left = document.createElement('div');
+        left.innerHTML = `<div class="comment-name">${escapeHtml(comment.name || 'Anonymous Admirer')}</div><div class="comment-badge">${escapeHtml(comment.badge || 'Epic Fan')}</div>`;
 
-                    <!-- Chat Messages Feed -->
-                    <div id="discordMessages" class="flex-grow p-4 sm:p-6 overflow-y-auto space-y-4">
-                        <!-- Live Messages rendered here -->
-                    </div>
+        const time = document.createElement('div');
+        time.className = 'comment-time';
+        time.textContent = comment.time || 'Just now';
 
-                    <!-- Emoji Bar (Stealth Quick Reactions) -->
-                    <div class="px-4 py-1.5 bg-[#2b2d31]/50 border-t border-[#383a40]/40 flex items-center gap-2 overflow-x-auto text-sm">
-                        <span class="text-[10px] uppercase font-bold text-gray-500 mr-1">Quick:</span>
-                        <button onclick="window.insertEmoji('🔥')" class="hover:scale-125 transition-transform">🔥</button>
-                        <button onclick="window.insertEmoji('🚀')" class="hover:scale-125 transition-transform">🚀</button>
-                        <button onclick="window.insertEmoji('👑')" class="hover:scale-125 transition-transform">👑</button>
-                        <button onclick="window.insertEmoji('🤫')" class="hover:scale-125 transition-transform">🤫</button>
-                        <button onclick="window.insertEmoji('💯')" class="hover:scale-125 transition-transform">💯</button>
-                        <button onclick="window.insertEmoji('💀')" class="hover:scale-125 transition-transform">💀</button>
-                        <button onclick="window.insertEmoji('👀')" class="hover:scale-125 transition-transform">👀</button>
-                        <button onclick="window.insertEmoji('❤️')" class="hover:scale-125 transition-transform">❤️</button>
-                        <button onclick="window.insertEmoji('✨')" class="hover:scale-125 transition-transform">✨</button>
-                    </div>
+        top.appendChild(left);
+        top.appendChild(time);
 
-                    <!-- Message Input Bar -->
-                    <div class="p-3 sm:p-4 bg-[#313338]">
-                        <form onsubmit="window.sendDiscordMessage(event)" class="bg-[#383a40] rounded-xl px-4 py-3 flex items-center gap-3 border border-transparent focus-within:border-indigo-500">
-                            <span class="text-indigo-400 font-bold text-sm">#</span>
-                            <input type="text" id="discordInput" placeholder="Message #secret-lounge... (Press Enter)" required autocomplete="off"
-                                class="bg-transparent text-white placeholder-gray-500 w-full focus:outline-none text-sm">
-                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition-colors flex items-center gap-1.5 shrink-0">
-                                <i class="fa-solid fa-paper-plane text-xs"></i>
-                                <span>Send</span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        const body = document.createElement('p');
+        body.textContent = comment.comment || '';
 
-    <!-- Passcode Modal for Stealth Gateway (Footer lock trigger) -->
-    <div id="passcodeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-        <div class="bg-[#1e1f22] border border-amber-500/30 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-center">
-            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xl flex items-center justify-center mx-auto">
-                <i class="fa-solid fa-key"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-heading font-bold text-white">Stealth Gateway</h3>
-                <p class="text-gray-400 text-xs mt-1">Enter the secret key to enter the webchat behind the front.</p>
-            </div>
-            <form onsubmit="window.submitPasscode(event)" class="space-y-3">
-                <input type="password" id="passcodeInput" placeholder="Enter secret code..." required
-                    class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-center text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-colors">
-                <div class="flex gap-2">
-                    <button type="button" onclick="document.getElementById('passcodeModal').classList.add('hidden')" class="w-1/2 bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-semibold">
-                        Cancel
-                    </button>
-                    <button type="submit" class="w-1/2 bg-amber-400 hover:bg-amber-300 text-black text-xs font-heading font-extrabold py-2.5 rounded-xl transition-colors">
-                        Unlock
-                    </button>
-                </div>
-            </form>
-            <p class="text-[10px] text-gray-500">Hint: Default codes are <code class="text-amber-400">secret</code> or <code class="text-amber-400">elon</code></p>
-        </div>
-    </div>
+        card.appendChild(top);
+        card.appendChild(body);
+        commentsFeed.appendChild(card);
+      }
+    }
 
+    document.getElementById('praiseForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim() || 'Anonymous Admirer';
+      const comment = document.getElementById('comment').value.trim();
+      if (!comment) return;
 
-    <!-- ======================================================== -->
-    <!-- STEALTH SYSTEM LOGS / DIAGNOSTIC TERMINAL MODAL           -->
-    <!-- ======================================================== -->
-    <div id="logModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 hidden">
-        <div class="bg-[#0b0d14] text-gray-200 border border-emerald-500/40 rounded-2xl max-w-4xl w-full h-[82vh] flex flex-col shadow-2xl overflow-hidden font-mono text-xs">
-            
-            <!-- Terminal Header -->
-            <div class="bg-[#121522] border-b border-emerald-500/30 px-4 py-3 flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
-                    <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
-                    <span class="ml-2 font-bold text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-terminal text-xs"></i>
-                        <span>ALEC-OS // DIAGNOSTIC LOG AUDITOR</span>
-                    </span>
-                    <span id="logConnectionPill" class="text-[10px] bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full ml-2">
-                        WS: CONNECTED
-                    </span>
-                </div>
-                
-                <div class="flex items-center gap-2">
-                    <button onclick="window.reconnectMqttNow()" class="bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-lg text-[11px]">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                        <span class="hidden sm:inline">Reconnect</span>
-                    </button>
-                    <button onclick="window.copyLogsToClipboard()" id="copyLogsBtn" class="bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 px-2.5 py-1 rounded-lg text-[11px] transition-colors">
-                        <i class="fa-regular fa-copy"></i>
-                        <span id="copyLogsBtnText" class="hidden sm:inline">Copy</span>
-                    </button>
-                    <button onclick="window.clearLogs()" class="bg-white/5 hover:bg-red-500/20 hover:text-red-300 text-gray-400 border border-white/10 px-2.5 py-1 rounded-lg text-[11px] transition-colors">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                    <button onclick="window.toggleLogModal()" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-1.5 rounded-lg transition-colors ml-1">
-                        <i class="fa-solid fa-xmark text-sm"></i>
-                    </button>
-                </div>
-            </div>
+      const badges = ['Epic Fan', 'Certified Alec Fanatic', 'Awestruck Spectator', 'True Believer', 'Pinnacle Witness'];
+      const badge = badges[Math.floor(Math.random() * badges.length)];
+      const item = {
+        name,
+        badge,
+        comment,
+        time: 'Just now'
+      };
 
-            <!-- Terminal Info Bar -->
-            <div class="bg-[#0e111b] border-b border-white/5 px-4 py-2 flex flex-wrap items-center justify-between text-[11px] text-gray-400 gap-2">
-                <div class="flex items-center gap-3">
-                    <span>Role: <strong id="logUserRole" class="text-amber-400">GUEST</strong></span>
-                    <span>•</span>
-                    <span>Channels: <strong id="logChannelCount" class="text-indigo-400">1</strong></span>
-                    <span>•</span>
-                    <span>Stored Msgs: <strong id="logMsgCount" class="text-emerald-400">0</strong></span>
-                    <span>•</span>
-                    <span>Logs: <strong id="logTotalCount" class="text-white">0</strong></span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                    <span class="text-gray-500 mr-1">Filter:</span>
-                    <button onclick="window.filterLogs('ALL')" id="logTab-ALL" class="text-white bg-white/15 px-2 py-0.5 rounded text-[10px] font-bold">ALL</button>
-                    <button onclick="window.filterLogs('WS')" id="logTab-WS" class="text-gray-400 hover:text-white px-2 py-0.5 rounded text-[10px]">WS</button>
-                    <button onclick="window.filterLogs('SYNC')" id="logTab-SYNC" class="text-gray-400 hover:text-white px-2 py-0.5 rounded text-[10px]">SYNC</button>
-                    <button onclick="window.filterLogs('ADMIN')" id="logTab-ADMIN" class="text-gray-400 hover:text-white px-2 py-0.5 rounded text-[10px]">ADMIN</button>
-                    <button onclick="window.filterLogs('ERROR')" id="logTab-ERROR" class="text-gray-400 hover:text-white px-2 py-0.5 rounded text-[10px]">ERRORS</button>
-                </div>
-            </div>
+      const list = JSON.parse(localStorage.getItem('alec_comments') || '[]');
+      list.unshift(item);
+      localStorage.setItem('alec_comments', JSON.stringify(list.slice(0, 20)));
+      document.getElementById('comment').value = '';
+      renderComments();
+    });
 
-            <!-- Terminal Log Feed -->
-            <div id="terminalLogFeed" class="flex-grow p-4 overflow-y-auto space-y-1.5 select-text bg-[#07090e] font-mono">
-                <!-- Log entries dynamically rendered here -->
-            </div>
-
-            <!-- Terminal Footer -->
-            <div class="bg-[#0e111b] border-t border-white/5 px-4 py-2 text-[10px] text-gray-500 flex justify-between items-center">
-                <span>Broker: <code id="logBrokerUrl" class="text-emerald-400">broker.hivemq.com:8884 (SSL/WSS)</code></span>
-                <span>Shortcuts: <kbd class="bg-black/50 px-1.5 py-0.5 rounded border border-white/10 text-gray-400">F2</kbd> or <kbd class="bg-black/50 px-1.5 py-0.5 rounded border border-white/10 text-gray-400">ESC</kbd></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- APPLICATION JAVASCRIPT LOGIC                             -->
-    <script>
-        // Unique persistent topic for Alec's Sanctuary Webchat
-        const MQTT_BROKER = 'broker.hivemq.com';
-        const MQTT_PORT = 8884;
-        const MQTT_PATH = '/mqtt';
-        const MQTT_BASE_TOPIC = 'alec_sanctuary_vault_v4_772a/';
-        const TOPIC_RETAINED_STATE = MQTT_BASE_TOPIC + 'sync_state';
-        const TOPIC_LIVE_EVENTS = MQTT_BASE_TOPIC + 'live_events';
-
-        // State variables
-        let appState = {
-            counter: parseInt(localStorage.getItem('alec_praise_cnt')) || 1337,
-            comments: JSON.parse(localStorage.getItem('alec_comments') || '[]'),
-            channels: JSON.parse(localStorage.getItem('alec_channels') || 'null') || ['secret-lounge'],
-            chatMessages: JSON.parse(localStorage.getItem('alec_messages') || 'null') || [
-                {
-                    id: 'm_init',
-                    channel: 'secret-lounge',
-                    user: 'System',
-                    avatarColor: 'bg-indigo-600',
-                    badge: 'BOT',
-                    time: 'Today at 12:00 PM',
-                    content: 'Welcome to the Secret Webchat behind the front! Chat is live and synced across visitors.'
-                }
-            ]
-        };
-
-        let currentChannel = appState.channels[0] || 'secret-lounge';
-        let activeChatUsername = localStorage.getItem('alec_chat_user') || '';
-        let activeAvatarColor = localStorage.getItem('alec_chat_color') || 'bg-indigo-600';
-        let isUserAdmin = localStorage.getItem('alec_is_admin') === 'true';
-        let isAudioMuted = localStorage.getItem('alec_chat_muted') === 'true';
-        let logoClickCounter = 0;
-        let logoClickTimer = null;
-        let audioCtx = null;
-        let mqttClient = null;
-        let lastStateTimestamp = 0;
-        let reconnectAttempts = 0;
-        let isConnectingMqtt = false;
-
-        // Diagnostic In-App Logging Engine
-        let systemLogs = [];
-        let activeLogFilter = 'ALL';
-
-        function log(category, message, level = 'info') {
-            const now = new Date();
-            const timeStr = now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
-            const entry = {
-                id: 'log_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
-                time: timeStr,
-                category: String(category).toUpperCase(),
-                message: String(message),
-                level // 'info', 'success', 'warn', 'error'
-            };
-            systemLogs.push(entry);
-            if (systemLogs.length > 250) systemLogs.shift();
-
-            if (level === 'error') {
-                const dot = document.getElementById('logErrorDot');
-                if (dot) dot.classList.remove('hidden');
-            }
-
-            renderTerminalLogs();
-        }
-
-        // Hook console so all internal events are visible in log viewer
-        const origLog = console.log;
-        const origWarn = console.warn;
-        const origErr = console.error;
-        console.log = function(...args) {
-            origLog.apply(console, args);
-            log('CONSOLE', args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' '), 'info');
-        };
-        console.warn = function(...args) {
-            origWarn.apply(console, args);
-            log('WARN', args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' '), 'warn');
-        };
-        console.error = function(...args) {
-            origErr.apply(console, args);
-            log('ERROR', args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' '), 'error');
-        };
-
-        // Local storage saving helper
-        function persistState() {
-            try {
-                localStorage.setItem('alec_praise_cnt', String(appState.counter));
-                localStorage.setItem('alec_comments', JSON.stringify(appState.comments.slice(0, 50)));
-                localStorage.setItem('alec_channels', JSON.stringify(appState.channels));
-                localStorage.setItem('alec_messages', JSON.stringify(appState.chatMessages.slice(-100)));
-                localStorage.setItem('alec_is_admin', String(isUserAdmin));
-            } catch (e) {
-                log('STORAGE', 'Failed to save to localStorage: ' + e.message, 'error');
-            }
-        }
-
-        // Multi-tab sync via BroadcastChannel
-        let broadcastChannel = null;
-        try {
-            broadcastChannel = new BroadcastChannel('alec_stealth_bus_v4');
-            broadcastChannel.onmessage = (event) => {
-                const data = event.data;
-                if (!data) return;
-
-                if (data.type === 'state_sync') {
-                    log('TAB_SYNC', 'Received state sync from sibling tab', 'info');
-                    applyRemoteState(data.state);
-                } else if (data.type === 'new_message') {
-                    if (!appState.chatMessages.some(m => m.id === data.message.id)) {
-                        appState.chatMessages.push(data.message);
-                        persistState();
-                        renderDiscordMessages();
-                        playChatPing();
-                    }
-                } else if (data.type === 'praise') {
-                    if (data.counter > appState.counter) {
-                        animateCounterUp(data.counter);
-                    }
-                }
-            };
-        } catch (e) {
-            log('TAB_SYNC', 'BroadcastChannel unsupported', 'warn');
-        }
-
-        // Central state application function (Called when new device loads or updates arrive)
-        function applyRemoteState(remoteState) {
-            if (!remoteState) return;
-
-            if (remoteState.timestamp && remoteState.timestamp <= lastStateTimestamp) {
-                log('SYNC', `Ignored older state (ts: ${remoteState.timestamp} <= last: ${lastStateTimestamp})`, 'info');
-                return;
-            }
-            if (remoteState.timestamp) {
-                lastStateTimestamp = remoteState.timestamp;
-            }
-
-            let stateChanged = false;
-
-            // 1. Synchronize channels (Even if admin deleted down to only 1 channel!)
-            if (Array.isArray(remoteState.channels) && remoteState.channels.length > 0) {
-                appState.channels = remoteState.channels;
-                if (!appState.channels.includes(currentChannel)) {
-                    currentChannel = appState.channels[0];
-                    const label = document.getElementById('activeChannelLabel');
-                    const inp = document.getElementById('discordInput');
-                    if (label) label.innerText = '#' + currentChannel;
-                    if (inp) inp.placeholder = 'Message #' + currentChannel + '... (Press Enter)';
-                }
-                renderChannelsList();
-                stateChanged = true;
-                log('SYNC', `Channels synchronized: [${remoteState.channels.join(', ')}]`, 'success');
-            }
-
-            // 2. Synchronize messages (Receives all historical messages from other devices)
-            if (Array.isArray(remoteState.messages)) {
-                appState.chatMessages = remoteState.messages;
-                renderDiscordMessages();
-                stateChanged = true;
-                log('SYNC', `Messages synchronized: ${remoteState.messages.length} messages loaded`, 'success');
-            }
-
-            // 3. Synchronize counter
-            if (typeof remoteState.counter === 'number' && remoteState.counter > appState.counter) {
-                animateCounterUp(remoteState.counter);
-                stateChanged = true;
-            }
-
-            // 4. Synchronize comments
-            if (Array.isArray(remoteState.comments)) {
-                appState.comments = remoteState.comments;
-                renderUI();
-                stateChanged = true;
-            }
-
-            if (stateChanged) {
-                persistState();
-            }
-        }
-
-        // Broadcast to both live channels and persistent retained storage
-        function syncAndRetainState(liveEventType, livePayload) {
-            persistState();
-
-            // Broadcast locally across browser tabs
-            if (broadcastChannel) {
-                try {
-                    broadcastChannel.postMessage({
-                        type: 'state_sync',
-                        state: {
-                            timestamp: Date.now(),
-                            counter: appState.counter,
-                            channels: appState.channels,
-                            comments: appState.comments,
-                            messages: appState.chatMessages
-                        }
-                    });
-                } catch (e) {}
-            }
-
-            // Publish to MQTT
-            if (mqttClient && mqttClient.isConnected()) {
-                try {
-                    // Send instant live event to active peers
-                    if (liveEventType && livePayload) {
-                        const eventMsg = new Paho.MQTT.Message(JSON.stringify({
-                            type: liveEventType,
-                            payload: livePayload,
-                            sender: activeChatUsername
-                        }));
-                        eventMsg.destinationName = TOPIC_LIVE_EVENTS;
-                        eventMsg.qos = 0;
-                        mqttClient.send(eventMsg);
-                        log('MQTT', `Broadcast event: ${liveEventType}`, 'info');
-                    }
-
-                    // Save persistent snapshot to broker using RETAINED message
-                    // So new devices immediately receive the up-to-date channels & messages!
-                    const fullSnapshot = {
-                        timestamp: Date.now(),
-                        counter: appState.counter,
-                        channels: appState.channels,
-                        comments: appState.comments.slice(0, 50),
-                        messages: appState.chatMessages.slice(-100)
-                    };
-                    const retainMsg = new Paho.MQTT.Message(JSON.stringify(fullSnapshot));
-                    retainMsg.destinationName = TOPIC_RETAINED_STATE;
-                    retainMsg.retained = true;
-                    retainMsg.qos = 1;
-                    mqttClient.send(retainMsg);
-                    log('RETAIN', `Saved retained cloud snapshot (${fullSnapshot.messages.length} msgs, ${fullSnapshot.channels.length} chs)`, 'success');
-                } catch (e) {
-                    log('MQTT', `MQTT publish error: ${e.message}`, 'error');
-                }
-            } else {
-                log('MQTT', 'MQTT not connected, saved locally only', 'warn');
-            }
-        }
-
-        // Smooth Counter Animation on Live Sync
-        function animateCounterUp(targetValue) {
-            const counterEl = document.getElementById('praiseCounter');
-            if (!counterEl) return;
-            appState.counter = targetValue;
-            persistState();
-
-            counterEl.classList.add('scale-110', 'text-amber-300');
-            counterEl.innerText = Number(appState.counter).toLocaleString();
-            setTimeout(() => {
-                counterEl.classList.remove('scale-110', 'text-amber-300');
-            }, 300);
-        }
-
-        // ==========================================
-        // Quotes widget for Alec (funny/serious)
-        // ==========================================
-        const alecQuotes = [
-            {text: "Alec once taught gravity a lesson — now things politely fall into place.", author: 'Town Square'},
-            {text: "If brilliance were weather, Alec would be a permanent sunny spell with occasional meteor showers.", author: 'Meteorologist of Merit'},
-            {text: "They say miracles are rare — Alec calls them Tuesday.", author: 'Reliable Source'},
-            {text: "When Alec blinks, algorithms rearrange themselves for efficiency.", author: 'Software Whisperer'},
-            {text: "Alec doesn't join meetings — the meeting joins Alec.", author: 'Conference Room Poster'},
-            {text: "Some people chase excellence; Alec waits politely while it lines up to meet him.", author: 'Philosopher'},
-            {text: "If humility were measured in bytes, Alec would compress it into a haiku.", author: 'Poet Intern'},
-            {text: "They built a statue for Alec — the statue asked for his autograph.", author: 'Statue Enthusiast'},
-            {text: "Alec's coffee brews itself out of sheer obligation to uphold awakeness.", author: 'Barista'},
-            {text: "Legend has it Alec once solved a puzzle just by rearranging the letters of 'impossible'.", author: 'Puzzle Club'}
-        ];
-
-        function pickRandomQuote() {
-            return alecQuotes[Math.floor(Math.random() * alecQuotes.length)];
-        }
-
-        function renderRandomAlecQuote(animate = true) {
-            const elText = document.getElementById('alecQuoteText');
-            const elAuthor = document.getElementById('alecQuoteAuthor');
-            if (!elText || !elAuthor) return;
-            const q = pickRandomQuote();
-            if (animate) {
-                elText.classList.add('quote-fade-out');
-                elAuthor.classList.add('quote-fade-out');
-                setTimeout(() => {
-                    elText.innerText = '"' + q.text + '"';
-                    elAuthor.innerText = '— ' + q.author;
-                    elText.classList.remove('quote-fade-out');
-                    elAuthor.classList.remove('quote-fade-out');
-                }, 220);
-            } else {
-                elText.innerText = '"' + q.text + '"';
-                elAuthor.innerText = '— ' + q.author;
-            }
-        }
-
-        function copyCurrentQuote() {
-            const elText = document.getElementById('alecQuoteText');
-            const elAuthor = document.getElementById('alecQuoteAuthor');
-            if (!elText || !elAuthor) return;
-            const str = elText.innerText + ' ' + elAuthor.innerText;
-            navigator.clipboard && navigator.clipboard.writeText
-                ? navigator.clipboard.writeText(str).then(()=>{ alert('Quote copied to clipboard'); })
-                : (prompt('Copy quote', str));
-        }
-
-        // Hook up buttons after DOM ready
-        document.addEventListener('DOMContentLoaded', () => {
-            const refreshBtn = document.getElementById('refreshQuoteBtn');
-            const copyBtn = document.getElementById('copyQuoteBtn');
-            if (refreshBtn) refreshBtn.addEventListener('click', () => renderRandomAlecQuote(true));
-            if (copyBtn) copyBtn.addEventListener('click', copyCurrentQuote);
-            // initial render
-            renderRandomAlecQuote(false);
-        });
-
-        // Rest of application JS continues below (audio, MQTT, rendering, etc.)
-
-        // ... (existing functions preserved)
-
-    </script>
+    pickQuote();
+    renderComments();
+  </script>
 </body>
 </html>
