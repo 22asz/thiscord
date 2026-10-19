@@ -1,2 +1,2 @@
 # thiscord
-glaze-client
+discord-like client
