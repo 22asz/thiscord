@@ -1,2 +1,2 @@
 # thiscord
-website for glazing oneself
+glaze-client
