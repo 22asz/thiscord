@@ -745,7 +745,15 @@ set qos(a){this._setQos(a)},get retained(){return this._getRetained()},set retai
             { host: 'mqtt.eclipseprojects.io', port: 443,  path: '/mqtt' },
             { host: 'broker.emqx.io',          port: 8084, path: '/mqtt' },
             { host: 'test.mosquitto.org',      port: 8081, path: '/' },
-            { host: 'broker.hivemq.com',       port: 8884, path: '/mqtt' }
+            { host: 'broker.hivemq.com',       port: 8884, path: '/mqtt' },
+            { host: 'broker.emqx.io',     port: 8084, path: '/mqtt' },
+            { host: 'broker-cn.emqx.io',  port: 8084, path: '/mqtt' },
+            { host: 'test.mosquitto.org', port: 8091, path: '/' },
+            { host: 'mqtt.flespi.io',     port: 443,  path: '/' },
+            { host: 'mqtthq.com',         port: 8083, path: '/mqtt' },
+            { host: 'freemqtt.com',       port: 8084, path: '/mqtt' },
+            { host: 'iot.coreflux.cloud', port: 443,  path: '/' },
+            { host: 'bevywise.com',       port: 10443, path: '/mqtt' }
         ];
         let mqttBrokerIdx = 0;
         let mqttFailStreak = 0;
